@@ -9,7 +9,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./rules/*": "./rules/*",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
