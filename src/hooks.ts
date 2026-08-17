@@ -18,11 +18,7 @@
  * rather than a suggestion.
  */
 
-import type {
-  HookJSONOutput,
-  PostToolUseHookInput,
-  PreToolUseHookInput,
-} from '@anthropic-ai/claude-agent-sdk';
+import type { HookInput, HookJSONOutput } from '@anthropic-ai/claude-agent-sdk';
 
 import { AuditLog, hashInput } from './audit.js';
 import { EvidenceLedger, collectEvidenceIds, sanitizeCitedRecords } from './evidence.js';
@@ -58,8 +54,15 @@ export interface GroundedHooksOptions {
 export interface GroundedHooks {
   ledger: EvidenceLedger;
   audit: AuditLog;
-  preToolUse: (input: PreToolUseHookInput) => Promise<HookJSONOutput>;
-  postToolUse: (input: PostToolUseHookInput) => Promise<HookJSONOutput>;
+  /**
+   * Both take the full `HookInput` union and ignore events they do not own, so
+   * they satisfy the SDK's `HookCallback` and can be dropped straight into a
+   * hooks array. Narrowing the parameter to one event type instead would read
+   * better here and fail to compile at the call site, which is the only place
+   * that matters.
+   */
+  preToolUse: (input: HookInput) => Promise<HookJSONOutput>;
+  postToolUse: (input: HookInput) => Promise<HookJSONOutput>;
 }
 
 export function createGroundedHooks(opts: GroundedHooksOptions): GroundedHooks {
@@ -71,7 +74,8 @@ export function createGroundedHooks(opts: GroundedHooksOptions): GroundedHooks {
   const retrieval = new Set(opts.retrievalTools);
   const citing = new Set(opts.citingTools);
 
-  const preToolUse = async (input: PreToolUseHookInput): Promise<HookJSONOutput> => {
+  const preToolUse = async (input: HookInput): Promise<HookJSONOutput> => {
+    if (input.hook_event_name !== 'PreToolUse') return {};
     if (!citing.has(input.tool_name)) return {};
 
     const toolInput = (input.tool_input ?? {}) as Record<string, unknown>;
@@ -161,7 +165,8 @@ export function createGroundedHooks(opts: GroundedHooksOptions): GroundedHooks {
     };
   };
 
-  const postToolUse = async (input: PostToolUseHookInput): Promise<HookJSONOutput> => {
+  const postToolUse = async (input: HookInput): Promise<HookJSONOutput> => {
+    if (input.hook_event_name !== 'PostToolUse') return {};
     if (!retrieval.has(input.tool_name)) return {};
 
     const ids = collectEvidenceIds(input.tool_response, { idFields: opts.idFields });
