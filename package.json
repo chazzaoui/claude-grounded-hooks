@@ -1,0 +1,56 @@
+{
+  "name": "claude-grounded-hooks",
+  "version": "0.1.0",
+  "description": "Evidence grounding, compliance blocking and hashed audit logging as Claude Agent SDK hooks. Deterministic set membership, no second model call.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "rules",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.check.json",
+    "eval": "tsx eval/run.ts"
+  },
+  "keywords": [
+    "claude",
+    "claude-agent-sdk",
+    "hooks",
+    "guardrails",
+    "citations",
+    "grounding",
+    "hallucination",
+    "audit",
+    "compliance",
+    "rag"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@anthropic-ai/claude-agent-sdk": ">=0.3.0"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/claude-agent-sdk": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@anthropic-ai/claude-agent-sdk": "0.3.233",
+    "@types/node": "^22",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

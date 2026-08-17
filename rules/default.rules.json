@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "forbiddenOutputPatterns": {
+    "unsupportedClaims": {
+      "description": "Output must not guarantee an outcome or assert a certainty the evidence cannot support.",
+      "severity": "block",
+      "patterns": [
+        "\\byou will win\\b",
+        "\\bguaranteed to win\\b",
+        "\\bwill be awarded\\b",
+        "\\b100% match\\b",
+        "\\bcertain to (win|succeed|qualify)\\b"
+      ]
+    },
+    "impersonation": {
+      "description": "Output must not speak as, or claim endorsement by, an authority it is not.",
+      "severity": "block",
+      "patterns": [
+        "\\bas a contracting officer\\b",
+        "\\bon behalf of the government\\b",
+        "\\bendorsed by [A-Z]",
+        "\\bofficial (determination|ruling) of\\b"
+      ]
+    },
+    "restrictedData": {
+      "description": "Output must not claim access to controlled or non-public data.",
+      "severity": "block",
+      "patterns": [
+        "\\bI have access to (classified|restricted|non-public)\\b",
+        "\\bretrieved from (CUI|FOUO)\\b"
+      ]
+    },
+    "hedgeless": {
+      "description": "Advisory language that overstates confidence without asserting a guarantee.",
+      "severity": "warn",
+      "patterns": [
+        "\\bevery indication points to\\b",
+        "\\bthere is no doubt\\b",
+        "\\bvirtually assured\\b"
+      ]
+    }
+  }
+}
