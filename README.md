@@ -101,8 +101,9 @@ The package is deliberate about its own limits, because a control whose limits y
 ## Eval
 
 ```bash
-npm run eval                                    # synthetic fixtures, no API key
-ANTHROPIC_API_KEY=... npx tsx eval/live.ts      # same scoring, real model
+npm run eval                                             # synthetic fixtures, no API key
+ANTHROPIC_API_KEY=... npm run eval:live                  # same scoring, real model
+ANTHROPIC_API_KEY=... npm run eval:live -- --repeat 5    # 5 runs per case, reports spread
 ```
 
 The offline fixtures are synthetic and the harness says so every run. They prove the controls behave as specified; they cannot tell you how often a model actually fabricates, because they were written to fabricate on purpose. `eval/live.ts` answers that, and deliberately does not tell the model which ids exist, since handing it the valid set would measure instruction-following rather than fabrication rate.
