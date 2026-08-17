@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "description": "Evidence grounding, compliance blocking and hashed audit logging as Claude Agent SDK hooks. Deterministic set membership, no second model call.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chazzaoui/claude-grounded-hooks.git"
+  },
+  "homepage": "https://github.com/chazzaoui/claude-grounded-hooks#readme",
+  "bugs": "https://github.com/chazzaoui/claude-grounded-hooks/issues",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -23,7 +29,8 @@
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.check.json",
     "eval": "tsx eval/run.ts",
-    "eval:live": "tsx eval/live.ts"
+    "eval:live": "tsx eval/live.ts",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "claude",
