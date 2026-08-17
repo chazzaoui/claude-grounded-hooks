@@ -20,7 +20,8 @@
     "build": "tsc",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.check.json",
-    "eval": "tsx eval/run.ts"
+    "eval": "tsx eval/run.ts",
+    "eval:live": "tsx eval/live.ts"
   },
   "keywords": [
     "claude",
